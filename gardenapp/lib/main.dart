@@ -6,43 +6,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => CheckList(),
-        '/AddCrop': (context) => AddCrop(),
-        '/Discover': (context) => Discover(),
-        '/Weather': (context) => Weather(),
-        '/Market': (context) => Market(),
-        '/About': (context) => About(),
-      },
-    );
-  }
-}
-
-/*class CheckList extends StatefulWidget {
-  CheckList({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  CheckListState createState() => CheckListState();
-}
-
-class CheckListState extends State<CheckList> {
-  void _incrementCounter() {
-    setState(() {});
-  }*/
-
-class CheckList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
+      home: new Scaffold(
+        drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -91,42 +61,101 @@ class CheckList extends StatelessWidget {
           ],
         ),
       ),
-      appBar: AppBar(
-        title: Text('Pomodoro'),
+        appBar: new AppBar(
+          title: Text('Pomodoro'),
+        ),
+        body: CheckList(),
       ),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/AddCrop': (context) => AddCrop(),
+        '/Discover': (context) => Discover(),
+        '/Weather': (context) => Weather(),
+        '/Market': (context) => Market(),
+        '/About': (context) => About(),
+      },
+      
+    );
+  }
+}
+
+/*class CheckList extends StatefulWidget {
+  CheckList({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  CheckListState createState() => CheckListState();
+}
+
+class CheckListState extends State<CheckList> {
+  void _incrementCounter() {
+    setState(() {});
+  }*/
+
+class CheckList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
       body: Center(
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              new Padding(padding: EdgeInsets.only(top: 250, left: 12, right: 12),
+              new Padding(padding: EdgeInsets.only(left: 12, right: 12),
               ),
-              new Text(
-                'Starting off? Add crops to your patch.',
-                style: new TextStyle(fontSize: 12.0),
+              new Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Starting off? Add crops to your patch.',
+                  style: new TextStyle(fontSize: 16.0),
+                  textAlign: TextAlign.center,
+                  
+                )  
               ),
               new Padding(padding: EdgeInsets.only(top: 20),
               ),
               new FloatingActionButton(
                 backgroundColor: Colors.green,
                 child: Icon(Icons.spa),
-                onPressed: () {},
+                onPressed: () {
+                  final navigator = Navigator.of(context);
+                  navigator.pushNamed('/AddCrop');
+                },
               )
-            ] ,
-          ), // This trailing comma makes auto-formatting nicer for build methods.
+            ],
+          ),
         )
       )
     );
   }
 }
 
-class AddCrop extends StatelessWidget {
+class AddCrop extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new AddCropState();
+  }
+}
+
+class AddCropState extends State<AddCrop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Crop'),
       ),
-      body: Center(
+      body: _cropListView(context),
+    );
+    /*return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Crop'),
+      ),
+      body: ListView(
+        children: <Widget>[
+          
+        ],
+        
         child: RaisedButton(
           onPressed: () {
             Navigator.pop(context);
@@ -134,8 +163,21 @@ class AddCrop extends StatelessWidget {
           child: Text('Go Back'),
         ),
       ),
-    );
+    );*/
   }
+}
+
+Widget _cropListView(BuildContext context) {
+  return ListView(
+    children: <Widget>[
+      ListTile(
+        title: Text('Sun')
+      ),
+      ListTile(
+        title: Text('Moon'),
+      )
+    ],
+  );
 }
 
 class Discover extends StatelessWidget {
