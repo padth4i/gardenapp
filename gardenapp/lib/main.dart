@@ -5,15 +5,24 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
+  
   Widget build(BuildContext context) {
     return new MaterialApp(
+      routes: {
+        '/AddCrop': (context) => AddCrop(),
+        '/Discover': (context) => Discover(),
+        '/Weather': (context) => Weather(),
+        '/Market': (context) => Market(),
+        '/About': (context) => About(),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: new Scaffold(
-        drawer: Drawer(
-        child: ListView(
+      home: Builder(
+        builder: (context) => Scaffold(
+          drawer: Drawer(
+            child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
@@ -60,21 +69,15 @@ class MyApp extends StatelessWidget {
                 }),
           ],
         ),
-      ),
+          ),
+        
         appBar: new AppBar(
           title: Text('Pomodoro'),
         ),
         body: CheckList(),
       ),
+    ),
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/AddCrop': (context) => AddCrop(),
-        '/Discover': (context) => Discover(),
-        '/Weather': (context) => Weather(),
-        '/Market': (context) => Market(),
-        '/About': (context) => About(),
-      },
-      
     );
   }
 }
